@@ -1,0 +1,15 @@
+
+*.pyc
+*.out
+*.log
+
+# manuals and data files
+
+*.pdf
+*.zip
+
+# operating system and tools
+.DS_Store
+.ropeproject
+*.swp
+~*
