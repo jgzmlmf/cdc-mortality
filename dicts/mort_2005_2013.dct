@@ -21,7 +21,7 @@ infile dictionary {
         byte edu %2f "Education"
         byte edu_group %1f "Education group (2003 revision)"
         byte edu_flag %1f "Education reporting flag"
-    _column(69) byte sex %1f "Sex"
+    _column(69) str1 sex %1s "Sex"
     _column(70)
         byte age_unit %1f "Code for scale of age"
         int age_val %3f "Code for age"

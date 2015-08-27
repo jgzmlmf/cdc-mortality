@@ -18,10 +18,10 @@ infile dictionary {
      _column(29) str2 res_usps %2s "State of residence, postal code"
      _column(33)
         str2 res_usps_recode %2s "State of residence recode, postal code"
-        int res_cnty %3f "County of residence"
+        str3 res_cnty %3s "County of residence"
         int res_place_fips %5f "Place (city) of residence, FIPS code"
         str1 res_city_size %1s "Population size category for city of residence"
-        byte res_metcat %1f "Category for status of county of residence"
+        str1 res_metcat %1s "Category for status of county of residence"
         str2 res_exp_state %2s "Expanded state of residence, postal code"
         str4 res_msa_fips %4s "PMSA/MSA of residence, FIPS code"
         str1 res_cnty_size %1s "Population size, county of residence"
@@ -40,7 +40,7 @@ infile dictionary {
         byte edu %2f "Education"
         byte edu_group %1f "Education group (2003 revision)"
         byte edu_flag %1f "Education reporting flag"
-    _column(69) byte sex %1f "Sex"
+    _column(69) str1 sex %1s "Sex"
     _column(70)
         byte age_unit %1f "Code for scale of age"
         int age_val %3f "Code for age"

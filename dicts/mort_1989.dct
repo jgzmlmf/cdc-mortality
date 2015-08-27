@@ -6,7 +6,7 @@ infile dictionary {
         byte yr %2f "Last two digits of year"
         str1 reparea %1s "Reporting area"
         str6 cert %6s "Cerificate number"
-        byte shipnum %2f "Shipment number"
+        str2 shipnum %2s "Shipment number"
         str7 seqnum %7s "Sequence number, unique record identifier"
         byte rectype %1f "Record type"
         byte res_stat %1f "Resident status"
@@ -28,10 +28,10 @@ infile dictionary {
     * Place of Residence
     _column(31)
         byte res_state %2f "State of residence, alphabetic order"
-        int res_cnty %3f "County of residence"
-        int res_city %3f "City of residence"
-        byte res_city_size %1f "Population size category for city of residence"
-        byte res_metcat %1f "Category for status of county of residence"
+        str3 res_cnty %3s "County of residence"
+        str3 res_city %3s "City of residence"
+        str1 res_city_size %1s "Population size category for city of residence"
+        str1 res_metcat %1s "Category for status of county of residence"
         byte res_region %1f "Region of residence"
         byte res_divcode %1f "Division code of residence"
 
@@ -96,7 +96,6 @@ infile dictionary {
         str3 cause_recode34 %3s "34 cause of death recode"
    _column(91)
         str3 cause_recode52 "52 cause of death recode"
-
 
     * Condition Codes
     _column(160) byte ent_num %2f "Number of entity-axis codes"

@@ -4,7 +4,7 @@ infile dictionary {
     _lines(1)
     _column(1)
         byte yr %1f "Last digit of year"
-        byte shipnum %2f "Shipment number"
+        str2 shipnum %2s "Shipment number"
         str1 reparea %1s "Reporting area"
         str6 cert %6s "Cerificate number"
         byte rectype %1f "Record type"
@@ -13,11 +13,11 @@ infile dictionary {
     * Place of Residence
     _column(13)
         byte res_state %2f "State of residence, alphabetic order"
-        int res_cnty %3f "County of residence"
-        int res_city %3f "City of residence"
-        byte res_city_size %1f "Population size category for city of residence"
+        str3 res_cnty %3s "County of residence"
+        str3 res_city %3s "City of residence"
+        str1 res_city_size %1s "Population size category for city of residence"
         str3 res_smsa %3s "Standard metropolitan statistical area of residence"
-        byte res_metcat %1f "Category for status of county of residence"
+        str1 res_metcat %1s "Category for status of county of residence"
     
     * Place of Occurrence
     _column(26)
