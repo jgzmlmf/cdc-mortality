@@ -86,5 +86,10 @@ save `gundeath', replace
 // 1999-2013 use ICD-10 to code cause of death
 
 
-
+// finalize dataset
+use `gundeath', clear
+qui compress
+la data "Homicide, suicide, and firearm deaths"
+save "output/gundeath.dta", replace
+capture erase `gundeath'
 exit
