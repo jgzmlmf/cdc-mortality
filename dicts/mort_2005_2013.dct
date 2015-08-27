@@ -1,8 +1,6 @@
-* Dictionary for 2005-2013 Multiple Cause of Death Files
-
-* policy restricting geographic codes in effect as of 2005.
-
 infile dictionary {
+    * Dictionary for 2005-2013 Multiple Cause of Death Files
+    * policy restricting geographic codes in effect as of 2005.
     _first(1)
     _lines(1)
     _column(94)

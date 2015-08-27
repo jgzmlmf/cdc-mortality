@@ -1,6 +1,5 @@
-* Dictionary for 1999-2002 Multiple Cause of Death Files
-
 infile dictionary {
+    * Dictionary for 1999-2002 Multiple Cause of Death Files
     _first(1)
     _lines(1)
     _column(115)
