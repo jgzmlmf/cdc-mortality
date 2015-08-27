@@ -1,0 +1,108 @@
+* Dictionary for 2005-2013 Multiple Cause of Death Files
+
+* policy restricting geographic codes in effect as of 2005.
+
+infile dictionary {
+    _first(1)
+    _lines(1)
+    _column(94)
+        str8 data_date %8s "Date of data receipt"
+        int year %4f "Data year"
+    _column(20)
+        byte res_stat %1f "Resident status"
+    
+    * Date of Death
+    _column(65) byte month %2f "Month of death"
+    _column(85) byte death_dow %1f "Day of week of death"
+
+    * Demographics
+    _column(55) str2 birth_state_usps %2s "State of birth, postal code"
+    _column(59)
+        str2 birth_state_usps_recode %2s "State of birth recode, postal code"
+    _column(61)
+        byte edu %2f "Education"
+        byte edu_group %1f "Education group (2003 revision)"
+        byte edu_flag %1f "Education reporting flag"
+    _column(69) byte sex %1f "Sex"
+    _column(70)
+        byte age_unit %1f "Code for scale of age"
+        int age_val %3f "Code for age"
+        byte age_calc %1f "Calculated age substituted for reported age"
+        * ignore re-codes of age at death
+    _column(445)
+        byte race %2f "Race"
+        byte race_bridge %1f "Flag for bridged race code"
+        byte race_impute %1f "Race imputation flag"
+    _column(484) int hispanic %3f "Hispanic origin"
+    _column(488) byte hispanic_recode %1f "Hispanic origin recode"
+    _column(84) str1 married %1s "Marital status"
+
+    _column(83)
+        byte death_place %1f "Place of death"
+    _column(107)
+        byte death_manner %1f "Manner of death"
+        str1 method_disp %1s "Method of disposition"
+        str1 autopsy %1s "Autopsy performed"
+
+    * Accidental Death Info
+    _column(144)
+        byte death_activity %1f "Activity code for death"
+        byte acc_place %1f "Place of accident category"
+    _column(106)
+        str1 work_injury %1s "Injury at work"
+
+    * Cause of Death
+    _column(146)
+        str4 cause %4s "Underlying cause of death ICD10"
+        str3 cause_recode358 %3s "358 cause of death recode"
+   _column(154)
+        str3 cause_recode113 %3s "113 cause of death recode"
+        str3 cause_infant %3s "Infant cause of death recode"
+        str2 cause_recode39 %2s "39 cause of death recode"
+
+    * Condition Codes
+    _column(163) byte ent_num %2f "Number of entity-axis codes"
+    _column(165)
+        str7 ent_cond1  %7s "Entity-axis condition 1"
+        str7 ent_cond2  %7s "Entity-axis condition 2"
+        str7 ent_cond3  %7s "Entity-axis condition 3"
+        str7 ent_cond4  %7s "Entity-axis condition 4"
+        str7 ent_cond5  %7s "Entity-axis condition 5"
+        str7 ent_cond6  %7s "Entity-axis condition 6"
+        str7 ent_cond7  %7s "Entity-axis condition 7"
+        str7 ent_cond8  %7s "Entity-axis condition 8"
+        str7 ent_cond9  %7s "Entity-axis condition 9"
+        str7 ent_cond10 %7s "Entity-axis condition 10"
+        str7 ent_cond11 %7s "Entity-axis condition 11"
+        str7 ent_cond12 %7s "Entity-axis condition 12"
+        str7 ent_cond13 %7s "Entity-axis condition 13"
+        str7 ent_cond14 %7s "Entity-axis condition 14"
+        str7 ent_cond15 %7s "Entity-axis condition 15"
+        str7 ent_cond16 %7s "Entity-axis condition 16"
+        str7 ent_cond17 %7s "Entity-axis condition 17"
+        str7 ent_cond18 %7s "Entity-axis condition 18"
+        str7 ent_cond19 %7s "Entity-axis condition 19"
+        str7 ent_cond20 %7s "Entity-axis condition 20"
+    _column(341) byte rec_num %2f "Number of record-axis codes"
+    _column(344)
+        str5 rec_cond1  %5s "Record-axis condition 1"
+        str5 rec_cond2  %5s "Record-axis condition 2"
+        str5 rec_cond3  %5s "Record-axis condition 3"
+        str5 rec_cond4  %5s "Record-axis condition 4"
+        str5 rec_cond5  %5s "Record-axis condition 5"
+        str5 rec_cond6  %5s "Record-axis condition 6"
+        str5 rec_cond7  %5s "Record-axis condition 7"
+        str5 rec_cond8  %5s "Record-axis condition 8"
+        str5 rec_cond9  %5s "Record-axis condition 9"
+        str5 rec_cond10 %5s "Record-axis condition 10"
+        str5 rec_cond11 %5s "Record-axis condition 11"
+        str5 rec_cond12 %5s "Record-axis condition 12"
+        str5 rec_cond13 %5s "Record-axis condition 13"
+        str5 rec_cond14 %5s "Record-axis condition 14"
+        str5 rec_cond15 %5s "Record-axis condition 15"
+        str5 rec_cond16 %5s "Record-axis condition 16"
+        str5 rec_cond17 %5s "Record-axis condition 17"
+        str5 rec_cond18 %5s "Record-axis condition 18"
+        str5 rec_cond19 %5s "Record-axis condition 19"
+        str5 rec_cond20 %5s "Record-axis condition 20"
+}
