@@ -1,7 +1,7 @@
 * Value labels for selected ICD codes
 
-capture la drop icd8
-la def icd8 /*
+capture la drop icd89  // ICD-8 and ICD-9 codes
+la def icd89 /*
   */ 950 "Suicide, poisoning by solid or liquid substances" /*
   */ 951 "Suicide, poisoning by gases in domestic use" /*
   */ 952 "Suicide, poisoning by other gases" /*

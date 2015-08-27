@@ -14,12 +14,13 @@ clear
 tempfile gundeath
 save `gundeath', emptyok replace
 
-// 1968-1978 use ICD-8 to code cause of death
+// 1968-1978 use ICD-8 and 1979-1998 use ICD-9 to code cause of death, these
+// codes are identical for suicides, homicides, and firearm-related deaths.
 clear
-tempfile dat_68_78
-save `dat_68_78', emptyok replace
+tempfile dat_68_98
+save `dat_68_98', emptyok replace
 
-forvalues y=1968/1978 {
+forvalues y=1968/1998 {
     infile using dicts/`dct`y'', using("`datadir'/`fprefix'`y'.1.dat") clear
     
     // make cause of death codes numeric
@@ -42,6 +43,7 @@ forvalues y=1968/1978 {
         }
     }
     keep if firearm == 1 | homicide == 1 | suicide == 1
+    capture drop year
     gen int year = `y'
     
     quietly {  // calculate age from unit code and value
@@ -51,7 +53,7 @@ forvalues y=1968/1978 {
     }
 
     recode race (1 = 1 white) (2 = 2 black) (3 = 3 native) /*
-        */ (0 4 5 6 7 8 = 9 other), gen(raza) label(raza) 
+        */ (0 4/98 = 99 other), gen(raza) label(raza) 
     drop race
     rename raza race
     
@@ -61,18 +63,24 @@ forvalues y=1968/1978 {
     assert inrange(race, 1, 9) if !mi(race)
     assert inlist(female, 0, 1) if !mi(female)
 
+    capture confirm variable edu
+    if !_rc {  // year has education codes
+        loc keepers "edu"
+    }
+
     keeporder occ_state occ_cnty year month age female race firearm /*
-        */ homicide suicide cause
-    qui append using `dat_68_78'
-    qui save `dat_68_78', replace
+        */ homicide suicide cause `keepers'
+    qui append using `dat_68_98'
+    qui save `dat_68_98', replace
 }
-erase `dat_68_78'
-rename cause cause_icd8
-la val cause_icd8 icd8
+erase `dat_68_98'
+gen int cause_icd8 = cause
+gen int cause_icd9 = cause
+drop cause
+la val cause_icd8 cause_icd9 icd89
 qui append using `gundeath'
 save `gundeath', replace
 
-// 1979-1998 use ICD-9 to code cause of death
 
 // 1999-2013 use ICD-10 to code cause of death
 
