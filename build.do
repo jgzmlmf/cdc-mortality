@@ -3,8 +3,10 @@
 capture conren style 5
 set more off
 
-loc datadir "mort-files/samples"
-loc fprefix = "samp."
+// config.do must define data_dir and fprefix locals that point to data files
+// (see below for usage example). Not in source control because settings may
+// differ on different workstations.
+include config.do
 include _dictlocs.do
 include _icdlab.do
 

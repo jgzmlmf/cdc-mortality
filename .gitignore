@@ -3,6 +3,10 @@
 *.out
 *.log
 
+# local configuration files
+
+config.do
+
 # manuals and data files
 
 *.pdf
