@@ -65,6 +65,7 @@ forvalues y=1968/1998 {
 
     capture confirm variable edu
     if !_rc {  // year has education codes
+        qui replace edu = .a if edu == 99
         loc keepers "edu"
     }
 
