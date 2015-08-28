@@ -12,6 +12,7 @@ config.do
 *.pdf
 *.zip
 *.dat
+*.dta
 
 # operating system and tools
 .DS_Store
