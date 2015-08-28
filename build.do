@@ -88,7 +88,7 @@ gen str4 cause_icd10 = cause if inrange(year, 1999, 2002)
 qui append using `gundeath'
 save `gundeath', replace
 
-exit // XXX
+
 // 2003-2013 use ICD-10 to code cause of death
 clear
 tempfile dat_03_13
@@ -109,7 +109,10 @@ forvalues y=2003/2013 {
     capture drop year
     gen int year = `y'
     
-    quietly {  // TODO: calculate age from unit code and value
+    quietly {  // calculate age from unit code and value
+        gen int age = age_val if age_unit == 1  // measured in years
+        replace age = 0 if inrange(age_unit, 2, 6)  // infant death
+        replace age = . if age_unit == 9
     }
 
     recode race (1 = 1 white) (2 = 2 black) (3 = 3 native) /*
@@ -117,7 +120,8 @@ forvalues y=2003/2013 {
     drop race
     rename raza race
     
-    // TODO: code sex here
+    gen int female = sex == "F" if !mi(sex)
+    la val female sex
 
     assert inrange(age, 0, 150) | mi(age)
     assert inrange(race, 1, 3) | race == 99 if !mi(race)
@@ -127,6 +131,10 @@ forvalues y=2003/2013 {
     if !_rc {  // year has education codes
         qui replace edu = .a if edu == 99
         loc keepers "edu"
+    }
+    capture confirm variable death_manner
+    if !_rc {  // year has manner of death
+        loc keepers "`keepers' death_manner"
     }
 
     keeporder occ_state occ_cnty year month age female race firearm /*
