@@ -32,7 +32,7 @@ forvalues y=1968/2002 {
     else if inrange(`y', 1979, 1998) {
         run _mark_icd9.do
     }
-    else if inrange(`v', 1999, 2002) {
+    else if inrange(`y', 1999, 2002) {
         run _mark_icd10.do
         // some years between 1998-2013 have a manner of death variable called
         // death_manner with codes for suicide, homicide, etc. These codes do
