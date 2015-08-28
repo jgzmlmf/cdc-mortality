@@ -153,11 +153,37 @@ erase `dat_03_13'
 gen str4 cause_icd8 = cause if inrange(year, 1968, 1978)
 gen str4 cause_icd9 = cause if inrange(year, 1979, 1998)
 gen str4 cause_icd10 = cause if inrange(year, 1999, 2013)
+drop cause
 qui append using `gundeath'
 save `gundeath', replace
 
 // finalize dataset
 use `gundeath', clear
+
+gen int time = ym(year, month)
+format time %tm
+
+keeporder occ_usps occ_cnty time year month age female race edu /*
+    */ firearm suicide homicide underlying cause_icd* death_manner
+
+la var occ_usps "State of death, USPS abbreviation"
+la var occ_cnty "County of death"
+la var time "Calendar year and month of death"
+la var year "Calendar year of death"
+la var month "Month of death"
+la var age "Age of decedent"
+la var female "Dummy marker for female decedent"
+la var race "Race of decedent"
+la var edu "Years of education of decedent"
+la var firearm "Dummy for firearm-related death"
+la var suicide "Dummy for suicide"
+la var homicide "Dummy for homicide"
+la var underlying "Underlying cause of death is homicide/suicide/firearm"
+la var cause_icd8 "Cause of death, ICD-8"
+la var cause_icd9 "Cause of death, ICD-9"
+la var cause_icd10 "Cause of death, ICD-10"
+la var death_manner "Manner of death"
+
 qui compress
 la data "Homicide, suicide, and firearm deaths"
 save "output/gundeath.dta", replace
