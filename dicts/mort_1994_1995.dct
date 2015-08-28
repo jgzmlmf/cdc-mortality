@@ -34,8 +34,8 @@ infile dictionary {
         str3 res_city %3s "City of residence"
         str1 res_city_size %1s "Population size category for city of residence"
         str1 res_metcat %1s "Category for status of county of residence"
-        byte res_region %1f "Region of residence"
-        byte res_divcode %1f "Division code of residence"
+        str1 res_region %1s "Region of residence"
+        str1 res_divcode %1s "Division code of residence"
 
     _column(44)
         byte res_exp_state %2f "Expanded state of residence"
@@ -50,8 +50,8 @@ infile dictionary {
     _column(134)
         byte res_cmsa_fips %2f "CMSA of residence, FIPS code"
     _column(50)
-        byte res_cnty_size %1f "Population size, county of residence"
-        byte res_msa_size %1f "Population size, PMSA/MSA of residence"
+        str1 res_cnty_size %1s "Population size, county of residence"
+        str1 res_msa_size %1s "Population size, PMSA/MSA of residence"
 
 
     * Date of Death

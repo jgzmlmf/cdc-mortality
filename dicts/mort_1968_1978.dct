@@ -39,7 +39,7 @@ infile dictionary {
         byte age_val %2f "Code for age"
         * ignore re-codes of age at death
 
-    _column(48) byte res_divcode %1f "Division code of residence"
+    _column(48) str1 res_divcode %1s "Division code of residence"
     _column(50) byte occ_divcode %1f "Division code of occurrence"
 
     _column(52)
