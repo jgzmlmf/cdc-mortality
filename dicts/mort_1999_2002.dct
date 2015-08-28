@@ -51,8 +51,8 @@ infile dictionary {
     _column(134)
         byte res_cmsa_fips %2f "CMSA of residence, FIPS code"
     _column(50)
-        byte res_cnty_size %1f "Population size, county of residence"
-        byte res_msa_size %1f "Population size, PMSA/MSA of residence"
+        str1 res_cnty_size %1s "Population size, county of residence"
+        str1 res_msa_size %1s "Population size, PMSA/MSA of residence"
 
 
     * Date of Death
