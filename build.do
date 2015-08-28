@@ -135,4 +135,11 @@ forvalues y=2003/2013 {
     qui save `dat_03_13', replace
 }
 
+// finalize dataset
+use `gundeath', clear
+qui compress
+la data "Homicide, suicide, and firearm deaths"
+save "output/gundeath.dta", replace
+capture erase `gundeath'
+
 exit
