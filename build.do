@@ -53,7 +53,7 @@ forvalues y=1968/1998 {
     
     recode sex (1 = 0 male) (2 = 1 female), gen(female) label(sex)
 
-    assert inrange(age, 0, 125) | mi(age)
+    assert inrange(age, 0, 150) | mi(age)
     assert inrange(race, 1, 3) | race == 99 if !mi(race)
     assert inlist(female, 0, 1) if !mi(female)
 
