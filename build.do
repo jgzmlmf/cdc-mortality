@@ -15,33 +15,27 @@ tempfile gundeath
 save `gundeath', emptyok replace
 
 // 1968-1978 use ICD-8 and 1979-1998 use ICD-9 to code cause of death, these
-// codes are identical for suicides, homicides, and firearm-related deaths.
+// schemes are similar for suicides, homicides, and firearm-related deaths.
 clear
 tempfile dat_68_98
 save `dat_68_98', emptyok replace
 
 forvalues y=1968/1998 {
+    di as result "Reading data for `y'"
     infile using dicts/`dct`y'', using("`datadir'/`fprefix'`y'.1.dat") clear
     
-    // make cause of death codes numeric
-    qui destring cause, replace
-    forvalues i=1/14 {
-        qui gen str4 rec_cause`i' = substr(rec_cond`i', 1, 4)  // cause code
-        qui gen str1 rec_injur`i' = substr(rec_cond`i', 5, 1)  // injury flag
-        qui destring rec_cause`i' rec_injur`i', replace
+    // find firearm related deaths and murders, suicides generally
+    if inrange(`y', 1968, 1978) {
+        run _mark_icd8.do
+    }
+    else if inrange(`y', 1979, 2013) {
+        run _mark_icd9.do
+    }
+    else {
+        di as error "Invalid year: `y'"
+        exit 198
     }
 
-    // find firearm related deaths and murders, suicides generally
-    gen byte firearm = 0
-    gen byte suicide = 0
-    gen byte homicide = 0
-    foreach v of varlist cause rec_cause* {
-        quietly {
-            replace firearm = 1 if inlist(`v', 922, 955, 965, 970, 985)
-            replace suicide = 1 if inrange(`v', 950, 959)
-            replace homicid = 1 if inrange(`v', 960, 969)
-        }
-    }
     keep if firearm == 1 | homicide == 1 | suicide == 1
     capture drop year
     gen int year = `y'
@@ -70,15 +64,14 @@ forvalues y=1968/1998 {
     }
 
     keeporder occ_state occ_cnty year month age female race firearm /*
-        */ homicide suicide cause `keepers'
+        */ homicide suicide cause underlying `keepers'
     qui append using `dat_68_98'
     qui save `dat_68_98', replace
 }
 erase `dat_68_98'
-gen int cause_icd8 = cause
-gen int cause_icd9 = cause
-drop cause
-la val cause_icd8 cause_icd9 icd89
+gen str4 cause_icd8 = cause if inrange(year, 1968, 1978)
+gen str4 cause_icd9 = cause if inrange(year, 1979, 1998)
+//la val cause_icd8 cause_icd9 icd89
 qui append using `gundeath'
 save `gundeath', replace
 
