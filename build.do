@@ -86,9 +86,6 @@ forvalues y=1968/2002 {
     qui save `dat_68_02', replace
 }
 erase `dat_68_02'
-gen str4 cause_icd8 = cause if inrange(year, 1968, 1978)
-gen str4 cause_icd9 = cause if inrange(year, 1979, 1998)
-gen str4 cause_icd10 = cause if inrange(year, 1999, 2002)
 qui append using `gundeath'
 save `gundeath', replace
 
@@ -152,6 +149,12 @@ forvalues y=2003/2013 {
     qui append using `dat_03_13'
     qui save `dat_03_13', replace
 }
+erase `dat_03_13'
+gen str4 cause_icd8 = cause if inrange(year, 1968, 1978)
+gen str4 cause_icd9 = cause if inrange(year, 1979, 1998)
+gen str4 cause_icd10 = cause if inrange(year, 1999, 2013)
+qui append using `gundeath'
+save `gundeath', replace
 
 // finalize dataset
 use `gundeath', clear
