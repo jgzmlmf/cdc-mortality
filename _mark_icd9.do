@@ -12,7 +12,7 @@ foreach v in firearm suicide homicide underlying {
     gen byte `v' = 0
 }
 
-// underlying cause of death uses 4-digit ICD-8 codes
+// underlying cause of death uses 4-digit ICD-9 codes
 replace firearm = 1 if regexm(cause, "^922[ 012389]?$")   // accident
 replace firearm = 1 if regexm(cause, "^955[ 0123459]?$")  // suicide
 replace firearm = 1 if regexm(cause, "^965[ 0-9]?$")      // homicide
