@@ -75,8 +75,12 @@ forvalues y=1968/2002 {
     if !_rc {  // year has manner of death
         loc keepers "`keepers' death_manner"
     }
+    
+    // convert alphabetic rank of state to USPS code
+    statez occ_state, from(anum) to(usps)
+    capture rename _USPS_ occ_usps
 
-    keeporder occ_state occ_cnty year month age female race firearm /*
+    keeporder occ_usps occ_cnty year month age female race firearm /*
         */ homicide suicide cause underlying `keepers'
     qui append using `dat_68_02'
     qui save `dat_68_02', replace
@@ -137,7 +141,13 @@ forvalues y=2003/2013 {
         loc keepers "`keepers' death_manner"
     }
 
-    keeporder occ_state occ_cnty year month age female race firearm /*
+    // geographic codes are supressed 2005-2013
+    if inrange(`y', 2005, 2013) {
+        qui gen occ_usps = ""
+        qui gen occ_cnty = .b
+    }
+
+    keeporder occ_usps occ_cnty year month age female race firearm /*
         */ homicide suicide cause underlying `keepers'
     qui append using `dat_03_13'
     qui save `dat_03_13', replace
