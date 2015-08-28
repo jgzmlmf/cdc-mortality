@@ -13,6 +13,9 @@ config.do
 *.zip
 *.dat
 *.dta
+icd/icd_codes.csv
+*.htm
+*.html
 
 # operating system and tools
 .DS_Store
