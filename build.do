@@ -80,7 +80,7 @@ forvalues y=1968/2002 {
     statez occ_state, from(anum) to(usps)
     capture rename _USPS_ occ_usps
 
-    keeporder rectype occ_usps occ_cnty year month age female race firearm /*
+    keeporder res_stat occ_usps occ_cnty year month age female race firearm /*
         */ homicide suicide cause underlying `keepers'
     qui append using `dat_68_02'
     qui save `dat_68_02', replace
@@ -144,7 +144,7 @@ forvalues y=2003/2013 {
         qui gen occ_cnty = .b
     }
 
-    keeporder rectype occ_usps occ_cnty year month age female race firearm /*
+    keeporder res_stat occ_usps occ_cnty year month age female race firearm /*
         */ homicide suicide cause underlying `keepers'
     qui append using `dat_03_13'
     qui save `dat_03_13', replace
@@ -163,9 +163,15 @@ use `gundeath', clear
 gen int time = ym(year, month)
 format time %tm
 
-keeporder rectype occ_usps occ_cnty time year month age female race edu /*
+keeporder res_stat occ_usps occ_cnty time year month age female race edu /*
     */ firearm suicide homicide underlying cause_icd* death_manner
 
+capture la drop res
+la def res 1 "Resident" 2 "Intra-state nonresident" /*
+    */ 3 "Inter-state nonresident" 4 "Foreign resident"
+la val res_stat res
+
+la var res_stat "Resident status"
 la var occ_usps "State of death, USPS abbreviation"
 la var occ_cnty "County of death"
 la var time "Calendar year and month of death"
