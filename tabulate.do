@@ -4,7 +4,7 @@ capture conren style 5
 set more off
 
 use "output/gundeath.dta", clear
-keep if rectype == 1  // U.S. residents only
+keep if inrange(res_stat, 1, 3)  // U.S. residents only
 keep if !mi(occ_usps)
 
 // create age groups
