@@ -80,7 +80,7 @@ forvalues y=1968/2002 {
     statez occ_state, from(anum) to(usps)
     capture rename _USPS_ occ_usps
 
-    keeporder occ_usps occ_cnty year month age female race firearm /*
+    keeporder rectype occ_usps occ_cnty year month age female race firearm /*
         */ homicide suicide cause underlying `keepers'
     qui append using `dat_68_02'
     qui save `dat_68_02', replace
@@ -144,7 +144,7 @@ forvalues y=2003/2013 {
         qui gen occ_cnty = .b
     }
 
-    keeporder occ_usps occ_cnty year month age female race firearm /*
+    keeporder rectype occ_usps occ_cnty year month age female race firearm /*
         */ homicide suicide cause underlying `keepers'
     qui append using `dat_03_13'
     qui save `dat_03_13', replace

@@ -6,7 +6,8 @@ infile dictionary {
     _column(94)
         str8 data_date %8s "Date of data receipt"
         int year %4f "Data year"
-    _column(20)
+    column(19)
+        byte rectype %1f "Record type"
         byte res_stat %1f "Resident status"
     
     * Date of Death
