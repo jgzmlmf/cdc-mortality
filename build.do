@@ -163,7 +163,7 @@ use `gundeath', clear
 gen int time = ym(year, month)
 format time %tm
 
-keeporder occ_usps occ_cnty time year month age female race edu /*
+keeporder rectype occ_usps occ_cnty time year month age female race edu /*
     */ firearm suicide homicide underlying cause_icd* death_manner
 
 la var occ_usps "State of death, USPS abbreviation"
