@@ -113,7 +113,7 @@ forvalues y=2003/2013 {
     quietly {  // calculate age from unit code and value
         gen int age = age_val if age_unit == 1  // measured in years
         replace age = 0 if inrange(age_unit, 2, 6)  // infant death
-        replace age = . if age_unit == 9
+        replace age = . if age_unit == 9 | age_val == 999
     }
 
     recode race (1 = 1 white) (2 = 2 black) (3 = 3 native) /*
