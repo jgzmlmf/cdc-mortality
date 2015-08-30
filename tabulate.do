@@ -26,24 +26,49 @@ foreach v of varlist *firearm* *homicide *suicide {
     qui replace `v' = 0 if mi(`v')
 }
 
+// homicide tabulations
 egen long all_homicide = rowtotal(*_homicide)
 gen long anyage_homicide = all_homicide - norep_homicide
 gen long nonjuv_homicide = all_homicide - juv_homicide
+
+// suicide tabulations
+egen long all_suicide = rowtotal(*_suicide)
+gen long anyage_suicide = all_suicide - norep_suicide
+gen long nonjuv_suicide = all_suicide - juv_suicide
+
+// firearm tabulations
+egen long all_firearm = rowtotal(*_firearm)
+gen long anyage_firearm = all_firearm - norep_firearm
+gen long nonjuv_firearm = all_firearm - juv_firearm
+egen long all_firearm_hom = rowtotal(*_firearm_hom)
+gen long anyage_firearm_hom = all_firearm_hom - norep_firearm_hom
+gen long nonjuv_firearm_hom = all_firearm_hom - juv_firearm_hom
+egen long all_firearm_sui = rowtotal(*_firearm_sui)
+gen long anyage_firearm_sui = all_firearm_sui - norep_firearm_sui
+gen long nonjuv_firearm_sui = all_firearm_sui - juv_firearm_sui
 
 statez occ_usps, from(usps) to(fips)
 capture rename (occ_usps _FIPS_) (usps fips)
 destring fips, replace
 
-keeporder fips usps year all_* adult_hom juv_hom nonjuv_* anyage_*
+keeporder fips usps year all_* adult_* juv_* nonjuv_* anyage_*
 
-la var all_hom "Number of total homicides"
-la var adult_hom "Number of adult (21+) homicides"
-la var juv_hom "Number of juvenile (12-17) homicides"
-la var nonjuv_hom "Number of non-juvenile (age not 12-17) homicides"
-la var anyage_hom "Number of homicides for any reported age"
+loc lblall "total"
+loc lbladult "adult (21+)"
+loc lbljuv "juvenile (12-17)"
+loc lblnonjuv "non-juvenile (age not 12-17)"
+loc lblanyage "any reported age (age not missing)"
+
+foreach age in all adult juv nonjuv anyage {
+    la var `age'_homicide    "Number of `lbl`age'' homicides"
+    la var `age'_suicide     "Number of `lbl`age'' suicides"
+    la var `age'_firearm     "Number of `lbl`age'' firearm-related deaths"
+    la var `age'_firearm_hom "Number of `lbl`age'' firearm homicides"
+    la var `age'_firearm_sui "Number of `lbl`age'' firearm suicides"
+}
 
 qui compress
 qui sum year
-la data "Homicides by state, `r(min)'-`r(max)'"
-save "output/mort_homicide.dta", replace
+la data "Violent deaths by state, `r(min)'-`r(max)'"
+save "output/violent_death.dta", replace
 exit
